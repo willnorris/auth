@@ -1,0 +1,77 @@
+---
+server:
+  address: "tcp://:9091"
+
+log:
+  level: "debug"
+
+authentication_backend:
+  file:
+    path: "/config/users_database.yml"
+  password_reset:
+    disable: true
+
+access_control:
+  default_policy: "deny"
+  rules:
+    - domain: "*"
+      policy: "deny"
+
+identity_providers:
+  oidc:
+    hmac_secret: {{ env "AUTH_OIDC_HMAC_SECRET" }}
+    jwks:
+    -
+      key: |
+        -----BEGIN PRIVATE KEY-----
+        {{ env "AUTH_OIDC_JWKS_KEY" }}
+        -----END PRIVATE KEY-----
+
+    ## The other portions of the mandatory OpenID Connect 1.0 configuration go here.
+    ## See: https://www.authelia.com/c/oidc
+    clients:
+      - client_id: "tailscale"
+        client_name: "Tailscale"
+        client_secret: {{ env "AUTH_OIDC_TAILSCALE_CLIENT_SECRET" }}
+
+        redirect_uris:
+          - "https://login.tailscale.com/a/oauth_response"
+        scopes:
+          - "openid"
+          - "email"
+          - "profile"
+        authorization_policy: "two_factor"
+
+ntp:
+  address: "udp://time.google.com:123"
+
+telemetry:
+  metrics:
+    address: "tcp://:9959/metrics"
+
+session:
+  secret: {{ env "AUTH_SESSION_SECRET" }}
+
+  cookies:
+    - name: "_auth_session"
+      domain: {{ env "AUTH_DOMAIN" }}
+      authelia_url: https://{{ env "AUTH_DOMAIN" }}
+      expiration: "1 hour"
+      inactivity: "5 minutes"
+
+regulation:
+  max_retries: 3
+  find_time: "2 minutes"
+  ban_time: "5 minutes"
+
+storage:
+  encryption_key: {{ env "AUTH_STORAGE_ENCRYPTION_KEY" }}
+  local:
+    path: "/data/db.sqlite3"
+
+notifier:
+  smtp:
+    address: "smtp://smtp.mailgun.org:587"
+    username: {{ env "AUTH_SMTP_EMAIL" }}
+    password: {{ env "AUTH_SMTP_PASSWORD" }}
+    sender: {{ env "AUTH_SMTP_EMAIL" }}
