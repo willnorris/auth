@@ -41,6 +41,7 @@ identity_providers:
           - "email"
           - "profile"
         authorization_policy: "two_factor"
+        pre_configured_consent_duration: "30d"
 
 ntp:
   address: "udp://time.google.com:123"
