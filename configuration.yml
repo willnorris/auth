@@ -36,6 +36,7 @@ identity_providers:
 
         redirect_uris:
           - "https://login.tailscale.com/a/oauth_response"
+          - "https://console.tailscale.com/a/oauth_response"
         scopes:
           - "openid"
           - "email"
