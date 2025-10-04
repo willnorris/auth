@@ -5,13 +5,13 @@ primary_region = "lax"
 
 [[mounts]]
   source = "data"
-  destination = "/data"
+  destination = "/app/data"
 
 [http_service]
-  internal_port = 9091
+  internal_port = 1411
   force_https = true
 
-[[metrics]]
-  port = 9959
-  path = "/metrics"
-  https = false
+# [[metrics]]
+#   port = 9464
+#   path = "/metrics"
+#   https = false

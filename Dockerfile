@@ -1,7 +1,4 @@
-FROM ghcr.io/authelia/authelia:master@sha256:c03958869cb44e4c7fd6783f17e6bc832fb506147ae274470cd60ed7946b56c4
-# latest authelia as of 2024-02-23
+FROM ghcr.io/pocket-id/pocket-id:v1-distroless@sha256:9e63376588cd10a77a23d758c99b599244657855d567304c5488cc9dee5a81d0
+# latest pocket-id as of 2025-10-03
 
-ENV X_AUTHELIA_CONFIG_FILTERS="template"
-
-COPY configuration.yml /config/configuration.yml
-COPY users_database.yml /config/users_database.yml
+ENV APP_URL=https://auth.willnorris.net
