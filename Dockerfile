@@ -1,4 +1,4 @@
-FROM ghcr.io/pocket-id/pocket-id:v1-distroless@sha256:9e63376588cd10a77a23d758c99b599244657855d567304c5488cc9dee5a81d0
-# latest pocket-id as of 2025-10-03
+FROM ghcr.io/pocket-id/pocket-id:v2-distroless@sha256:deadc3c4dd6655a7d7f959200db1c74e394942dc061e6f3732b709983a08aab7
+# v2.5.0
 
 ENV APP_URL=https://auth.willnorris.net
